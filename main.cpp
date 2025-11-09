@@ -1,32 +1,37 @@
-#include <QGuiApplication>
+#include <QCoreApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-// Face recognition related headers
 #include "Camera/inc/CamThreadMgr.h"
 #include "FaceCheck/inc/FaceCheckService.h"
 #include "FaceMesh/inc/FaceMeshService.h"
 #include "ImgProvider/inc/ConFaceCheck.h"
 #include "ImgProvider/inc/ImageProvider.h"
 #include "Common/constant.h"
+#include "Booting/inc/BootingApp.h"
+#include "Logger/inc/logger.h"
 
-// STD Library
 #include <iostream>
 #include <memory>
 
 int main(int argc, char *argv[]) {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
-    QGuiApplication app(argc, argv);
+    QCoreApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
-    // Image provider for live camera feed
-    ImageProvider *liveImageProvider = new ImageProvider;
+    // --- Bước 1: Booting app (tải danh sách ảnh từ API và lưu về ./DB hoặc /tmp/DB)
+    BootApp::getInstance().init();
 
-    // --- Initialize camera ---
-    CamThreadMgr::getInstance()->setCameraIndex(CAMERA_INDEX);
+    // --- Bước 2: Khởi tạo dịch vụ FaceCheckService với ID (ví dụ "20521422")
+    FaceCheckService::getInstance()->init("20521422");
+    // → Hàm init() sẽ gọi setPatternStr() và loadDatabase(), không còn lỗi pattern_jpg
+    // cv::Mat img = cv::imread("/tmp/DB/20521422_1.jpg");
+    // cv::Mat feat = FaceCheckService::getInstance()->getFeatureFromImage(img);
+    // std::cout << "feature shape: " << feat.rows << "x" << feat.cols << std::endl;
+    // --- Bước 3: Khởi tạo video test thay cho camera thật
+    CamThreadMgr::getInstance()->setVideoPath("./test/Huyen.mp4");
 
-    // Consumer for face checking
     std::unique_ptr<Consumer<cv::Mat>> conFaceCheck = std::make_unique<ConFaceCheckIpml>();
     conFaceCheck->setSleepTime(0);
     conFaceCheck->setConsumerName("conFaceCheck");
@@ -35,21 +40,16 @@ int main(int argc, char *argv[]) {
     CamThreadMgr::getInstance()->addConsumer(std::move(conFaceCheck));
     CamThreadMgr::getInstance()->startProducer();
 
-    // --- Bind C++ objects to QML ---
-    engine.rootContext()->setContextProperty("CamThreadService", CamThreadMgr::getInstance());
-    engine.rootContext()->setContextProperty("liveImageProvider", liveImageProvider);
-    engine.rootContext()->setContextProperty("FaceCheckService", FaceCheckService::getInstance());
-
-    engine.addImageProvider("live", liveImageProvider);
-
-    // --- Initialize face recognition modules ---
+    // --- Bước 4: Nạp các mô hình xử lý mesh
     FaceMeshService::getInstance()->load("500m");
-    FaceCheckService::getInstance()->loadDatabase();
 
-    // --- Load UI ---
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-    if (engine.rootObjects().isEmpty())
-        return -1;
+    // --- Bước 5: Chạy event loop Qt
+    bool match = FaceCheckService::getInstance()->recognize("20521422", 0);
+
+    if (match)
+        LOG(LogLevel::INFO, "✅ Người trong video trùng với ảnh trong DB!");
+    else
+        LOG(LogLevel::WARNING, "❌ Người trong video KHÔNG trùng với ảnh trong DB!");
 
     return app.exec();
 }

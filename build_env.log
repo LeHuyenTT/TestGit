@@ -1,0 +1,16 @@
+🧰 Build started at Sat Nov  8 11:30:30 UTC 2025
+────────────────────────────────────
+▶️  Checking install_cmake_3_20.sh ...
+⏭️  install_cmake_3_20.sh already installed, skipping.
+────────────────────────────────────
+▶️  Checking install_qt5.sh ...
+⏭️  install_qt5.sh already installed, skipping.
+────────────────────────────────────
+▶️  Checking install_opencv.sh ...
+⏭️  install_opencv.sh already installed, skipping.
+────────────────────────────────────
+▶️  Checking install_socketio.sh ...
+⏭️  install_socketio.sh already installed, skipping.
+────────────────────────────────────
+▶️  Checking install_ncnn.sh ...
+⏭️  install_ncnn.sh already installed, skipping.

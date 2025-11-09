@@ -1,0 +1,17 @@
+[2025-11-09 10:46:27] [INFO] Function: init(), Line: 78, Message: Initializing BootApp...
+[2025-11-09 10:46:27] [INFO] Function: init(), Line: 82, Message: Requesting image list from: https://glorious-space-spoon-r44j464qprwc5g4v-9001.app.github.dev/api/v1/users/images/all
+[2025-11-09 10:46:27] [INFO] Function: operator()(), Line: 100, Message: Found 5 images.
+[2025-11-09 10:46:27] [INFO] Function: operator()(), Line: 102, Message: Downloading DB files (5)
+[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 38, Message: 🧹 Cleaned old DB folder and recreated: /workspaces/TestGit/DB
+[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 51, Message: Downloading: https://ik.imagekit.io/huyen/H/20521422_1.png?updatedAt=1762677838220
+[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 52, Message: → id_stt: 20521422_1
+[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 51, Message: Downloading: https://ik.imagekit.io/huyen/H/20521422_2.png?updatedAt=1762677932753
+[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 52, Message: → id_stt: 20521422_2
+[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 51, Message: Downloading: https://ik.imagekit.io/huyen/H/20521422_3.png?updatedAt=1762678182380
+[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 52, Message: → id_stt: 20521422_3
+[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 51, Message: Downloading: https://ik.imagekit.io/huyen/H/20521422_5.png?updatedAt=1762678182426
+[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 52, Message: → id_stt: 20521422_5
+[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 51, Message: Downloading: https://ik.imagekit.io/huyen/H/20521422_4.png?updatedAt=1762678182468
+[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 52, Message: → id_stt: 20521422_4
+[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 61, Message: ✅ All images saved to /workspaces/TestGit/DB
+[2025-11-09 10:46:27] [INFO] Function: operator()(), Line: 108, Message: Download DB done!

@@ -2,7 +2,6 @@
 #define FACECHECKSERVICE_H
 
 #include <iostream>
-// #include <opencv2/opencv.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
@@ -12,6 +11,7 @@
 #include "TMtCNN.h"
 #include "TRetina.h"
 #include "TWarp.h"
+
 #include <QObject>
 #include <algorithm>
 #include <mutex>
@@ -21,8 +21,7 @@
 
 using namespace cv;
 
-//#define RETINA                                    //comment if you want to use
-// MtCNN landmark detection instead
+//#define RETINA                                    // comment if you want to use MtCNN landmark detection instead
 #define TEST_LIVING
 #define MIN_FACE_THRESHOLD 0.50
 #define FACE_LIVING 0.93
@@ -30,7 +29,6 @@ using namespace cv;
 class FaceCheckService : public QObject {
     Q_OBJECT
 private:
-    /* data */
     static FaceCheckService *instance;
     static std::mutex        m_ctx;
 
@@ -43,18 +41,22 @@ private:
     const int RetinaWidth  = 320;
     const int RetinaHeight = 240;
 
-    //! @brief The networks
+    //! @brief Neural network modules
     TLive                   Live;
     TWarp                   Warp;
     TMtCNN                  MtCNN;
     TArcFace                ArcFace;
     TRetina *               Rtn;
+
     std::vector<cv::String> NameFaces;
-    int                     faceCnt;
-    std::string             path_to_dir = "/tmp/DB/";
-    std::string             endswith    = ".jpg";
-    std::string             pattern_jpg = "";
     std::vector<cv::Mat>    fc1;
+    int                     faceCnt = 0;
+
+    // ✅ Đường dẫn DB của bạn
+    std::string path_to_dir = "/workspaces/TestGit/DB";
+    // ✅ Ảnh bạn tải về là PNG
+    std::string endswith    = ".png";
+    std::string pattern_jpg = "";
 
 public:
     static FaceCheckService *getInstance();
@@ -67,6 +69,7 @@ public:
     bool             loadDatabase();
 
     std::string setPatternStr(std::string id);
+    cv::Mat     getFeatureFromImage(const cv::Mat &img);
 };
 
 #endif // FACECHECKSERVICE_H

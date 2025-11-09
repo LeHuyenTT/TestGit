@@ -74,4 +74,4 @@ CMakeLists.txt.user
 build/
 .vsode/
 mocks/getDeviceID
-libs/
+
