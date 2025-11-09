@@ -9,7 +9,10 @@ static inline float CosineDistance(const cv::Mat &v1, const cv::Mat &v2) {
     double dot      = v1.dot(v2);
     double denom_v1 = norm(v1);
     double denom_v2 = norm(v2);
+    if (denom_v1 == 0 || denom_v2 == 0)
+        return 0.0f;
     return dot / (denom_v1 * denom_v2);
+
 }
 
 FaceCheckService *FaceCheckService::getInstance() {
@@ -23,7 +26,7 @@ FaceCheckService *FaceCheckService::getInstance() {
 }
 
 std::string FaceCheckService::setPatternStr(std::string id) {
-    this->pattern_jpg = this->path_to_dir.append(id).append("*").append(this->endswith);
+    this->pattern_jpg = this->path_to_dir + "/" + id + "*" + this->endswith;
     return this->pattern_jpg;
 }
 
@@ -36,80 +39,52 @@ bool FaceCheckService::init(std::string id) {
 #endif
     return ret;
 }
-
 bool FaceCheckService::loadDatabase() {
+    cv::Mat faces;
     if (pattern_jpg.empty()) {
         LOG(LogLevel::ERROR, "pattern_jpg is empty");
         return false;
     }
-
-    // 🔹 Đọc cả JPG và PNG
-    std::vector<cv::String> allFiles;
-    cv::glob(this->path_to_dir + "/*.jpg", allFiles, false);
-    std::vector<cv::String> pngFiles;
-    cv::glob(this->path_to_dir + "/*.png", pngFiles, false);
-    allFiles.insert(allFiles.end(), pngFiles.begin(), pngFiles.end());
-    this->NameFaces = allFiles;
-
-    this->faceCnt = static_cast<int>(this->NameFaces.size());
+    cv::glob(this->pattern_jpg, this->NameFaces);
+    this->faceCnt = this->NameFaces.size();
     if (this->faceCnt == 0) {
-        LOG(LogLevel::ERROR, "❌ No image files [jpg/png] in database");
+        LOG(LogLevel::ERROR, "No image files[jpg] in database");
         return false;
+    } else {
+        LOG(LogLevel::INFO, "Found " + std::to_string(this->faceCnt) + " pictures in database.");
+        for (int i = 0; i < this->faceCnt; i++) {
+            // convert to landmark vector and store into fc
+            faces = cv::imread(this->NameFaces[i]);
+            if (faces.empty()) {
+                LOG(LogLevel::WARNING, "⚠️ Cannot read image: " + this->NameFaces[i]);
+                continue;
+            }
+
+            // 🔧 Ép kích thước ảnh đúng chuẩn model ArcFace
+            cv::resize(faces, faces, cv::Size(112, 112));
+
+            // 🧩 Trích xuất đặc trưng
+            cv::Mat feat = this->ArcFace.GetFeature(faces);
+
+            // 🔍 Log kiểm tra feature
+            double n = cv::norm(feat);
+            LOG(LogLevel::INFO, "Feature norm for " + this->NameFaces[i] + ": " + std::to_string(n));
+
+            if (feat.empty() || std::isnan(n) || n == 0) {
+                LOG(LogLevel::WARNING, "⚠️ Invalid feature (empty or NaN) for: " + this->NameFaces[i]);
+                continue;
+            }
+
+            this->fc1.push_back(feat);
+
+            if (faceCnt > 1)
+                printf("\rloading: %.2lf%% ", (i * 100.0) / (faceCnt - 1));
+        }
+        LOG(LogLevel::INFO, "Loaded " + std::to_string(this->faceCnt) + " faces in total");
+        return true;
     }
-
-    LOG(LogLevel::INFO, "Found " + std::to_string(this->faceCnt) + " pictures in database.");
-
-    this->fc1.clear();
-    int validFaces = 0;
-
-    for (int i = 0; i < this->faceCnt; i++) {
-        cv::Mat img = cv::imread(this->NameFaces[i], cv::IMREAD_UNCHANGED);
-        if (img.empty()) {
-            LOG(LogLevel::WARNING, "⚠️ Cannot read image: " + this->NameFaces[i]);
-            continue;
-        }
-
-        // 🔧 Chuyển đổi ảnh về định dạng BGR 3 kênh nếu cần
-        if (img.channels() == 4) {
-            cv::cvtColor(img, img, cv::COLOR_BGRA2BGR);
-            LOG(LogLevel::INFO, "Converted RGBA -> BGR: " + this->NameFaces[i]);
-        } else if (img.channels() == 1) {
-            cv::cvtColor(img, img, cv::COLOR_GRAY2BGR);
-            LOG(LogLevel::INFO, "Converted GRAY -> BGR: " + this->NameFaces[i]);
-        }
-
-        // 🧠 Kiểm tra kích thước ảnh
-        if (img.cols < 50 || img.rows < 50) {
-            LOG(LogLevel::WARNING, "⚠️ Image too small, skip: " + this->NameFaces[i]);
-            continue;
-        }
-
-        // 🧩 Trích xuất đặc trưng khuôn mặt
-        cv::Mat feat = this->ArcFace.GetFeature(img);
-
-        double n = cv::norm(feat);
-        if (feat.empty() || cv::countNonZero(feat) == 0 || std::isnan(n) || std::isinf(n)) {
-            LOG(LogLevel::WARNING, "⚠️ Invalid or empty feature vector for: " + this->NameFaces[i]);
-            continue;
-        }
-
-        this->fc1.push_back(feat);
-        validFaces++;
-        if (faceCnt > 1)
-            printf("\rloading: %.2lf%% ", (i * 100.0) / (faceCnt - 1));
-    }
-
-    this->faceCnt = validFaces;
-
-    if (this->faceCnt == 0) {
-        LOG(LogLevel::ERROR, "❌ No valid faces could be loaded into feature database");
-        return false;
-    }
-
-    LOG(LogLevel::INFO, "✅ Loaded " + std::to_string(this->faceCnt) + " valid faces in total");
-    return true;
+    return false;
 }
-
 
 static inline bool check_create_folder(const std::string &path) {
     struct stat info;
@@ -196,8 +171,23 @@ bool FaceCheckService::recognize(QString id, int cam_num) {
             if (Faces[0].FaceProb > MIN_FACE_THRESHOLD) {
                 cv::Mat aligned = Warp.Process(result_cnn, Faces[0]);
                 Faces[0].Angle  = Warp.Angle;
-                // features of camera image
+
+                // 🔧 Resize ảnh đầu vào đúng chuẩn model ArcFace
+                cv::resize(aligned, aligned, cv::Size(112, 112));
+
+                // 🧩 Trích xuất đặc trưng khuôn mặt từ camera
                 cv::Mat fc2 = ArcFace.GetFeature(aligned);
+
+                // 🔍 Log kiểm tra feature
+                double n2 = cv::norm(fc2);
+                LOG(LogLevel::INFO, "Camera feature norm: " + std::to_string(n2));
+
+                if (fc2.empty() || std::isnan(n2) || n2 == 0) {
+                    LOG(LogLevel::WARNING, "⚠️ Invalid camera feature vector (empty or NaN). Skipping frame.");
+                    failureCnt++;
+                    continue;
+                }
+
                 // reset indicators
                 if (this->faceCnt > 0) {
                     vector<double> score_;
@@ -289,6 +279,7 @@ bool FaceCheckService::loginWithFace(const Mat &frame) {
 FaceCheckService::FaceCheckService(QObject *parent) : QObject(parent) {
     this->Live.LoadModel();
     this->Rtn = new TRetina(this->RetinaWidth, this->RetinaHeight, true);
+    LOG(LogLevel::INFO, "✅ FaceCheckService initialized (ArcFace assumed pre-loaded).");
 }
 
 FaceCheckService::~FaceCheckService() {

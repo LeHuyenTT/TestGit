@@ -55,7 +55,7 @@ private:
     // ✅ Đường dẫn DB của bạn
     std::string path_to_dir = "/workspaces/TestGit/DB";
     // ✅ Ảnh bạn tải về là PNG
-    std::string endswith    = ".png";
+    std::string endswith    = ".jpg";
     std::string pattern_jpg = "";
 
 public:

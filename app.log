@@ -1,17 +1,238 @@
-[2025-11-09 10:46:27] [INFO] Function: init(), Line: 78, Message: Initializing BootApp...
-[2025-11-09 10:46:27] [INFO] Function: init(), Line: 82, Message: Requesting image list from: https://glorious-space-spoon-r44j464qprwc5g4v-9001.app.github.dev/api/v1/users/images/all
-[2025-11-09 10:46:27] [INFO] Function: operator()(), Line: 100, Message: Found 5 images.
-[2025-11-09 10:46:27] [INFO] Function: operator()(), Line: 102, Message: Downloading DB files (5)
-[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 38, Message: 🧹 Cleaned old DB folder and recreated: /workspaces/TestGit/DB
-[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 51, Message: Downloading: https://ik.imagekit.io/huyen/H/20521422_1.png?updatedAt=1762677838220
-[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 52, Message: → id_stt: 20521422_1
-[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 51, Message: Downloading: https://ik.imagekit.io/huyen/H/20521422_2.png?updatedAt=1762677932753
-[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 52, Message: → id_stt: 20521422_2
-[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 51, Message: Downloading: https://ik.imagekit.io/huyen/H/20521422_3.png?updatedAt=1762678182380
-[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 52, Message: → id_stt: 20521422_3
-[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 51, Message: Downloading: https://ik.imagekit.io/huyen/H/20521422_5.png?updatedAt=1762678182426
-[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 52, Message: → id_stt: 20521422_5
-[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 51, Message: Downloading: https://ik.imagekit.io/huyen/H/20521422_4.png?updatedAt=1762678182468
-[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 52, Message: → id_stt: 20521422_4
-[2025-11-09 10:46:27] [INFO] Function: downloadDB(), Line: 61, Message: ✅ All images saved to /workspaces/TestGit/DB
-[2025-11-09 10:46:27] [INFO] Function: operator()(), Line: 108, Message: Download DB done!
+[2025-11-09 12:17:24] [INFO] Function: init(), Line: 78, Message: Initializing BootApp...
+[2025-11-09 12:17:24] [INFO] Function: init(), Line: 82, Message: Requesting image list from: https://glorious-space-spoon-r44j464qprwc5g4v-9001.app.github.dev/api/v1/users/images/all
+[2025-11-09 12:17:24] [INFO] Function: operator()(), Line: 100, Message: Found 5 images.
+[2025-11-09 12:17:24] [INFO] Function: operator()(), Line: 102, Message: Downloading DB files (5)
+[2025-11-09 12:17:24] [INFO] Function: downloadDB(), Line: 38, Message: 🧹 Cleaned old DB folder and recreated: /workspaces/TestGit/DB
+[2025-11-09 12:17:24] [INFO] Function: downloadDB(), Line: 51, Message: Downloading: https://ik.imagekit.io/huyen/H/20521422_1.jpg?updatedAt=1762686126975
+[2025-11-09 12:17:24] [INFO] Function: downloadDB(), Line: 52, Message: → id_stt: 20521422_1
+[2025-11-09 12:17:24] [INFO] Function: downloadDB(), Line: 51, Message: Downloading: https://ik.imagekit.io/huyen/H/20521422_2.jpg?updatedAt=1762686127035
+[2025-11-09 12:17:24] [INFO] Function: downloadDB(), Line: 52, Message: → id_stt: 20521422_2
+[2025-11-09 12:17:25] [INFO] Function: downloadDB(), Line: 51, Message: Downloading: https://ik.imagekit.io/huyen/H/20521422_3.jpg?updatedAt=1762686127095
+[2025-11-09 12:17:25] [INFO] Function: downloadDB(), Line: 52, Message: → id_stt: 20521422_3
+[2025-11-09 12:17:25] [INFO] Function: downloadDB(), Line: 51, Message: Downloading: https://ik.imagekit.io/huyen/H/20521422_4.jpg?updatedAt=1762686127071
+[2025-11-09 12:17:25] [INFO] Function: downloadDB(), Line: 52, Message: → id_stt: 20521422_4
+[2025-11-09 12:17:25] [INFO] Function: downloadDB(), Line: 51, Message: Downloading: https://ik.imagekit.io/huyen/H/20521422_5.jpg?updatedAt=1762686126931
+[2025-11-09 12:17:25] [INFO] Function: downloadDB(), Line: 52, Message: → id_stt: 20521422_5
+[2025-11-09 12:17:25] [INFO] Function: downloadDB(), Line: 61, Message: ✅ All images saved to /workspaces/TestGit/DB
+[2025-11-09 12:17:25] [INFO] Function: operator()(), Line: 108, Message: Download DB done!
+[2025-11-09 12:17:25] [INFO] Function: FaceCheckService(), Line: 282, Message: ✅ FaceCheckService initialized (ArcFace assumed pre-loaded).
+[2025-11-09 12:17:25] [INFO] Function: loadDatabase(), Line: 54, Message: Found 5 pictures in database.
+[2025-11-09 12:17:25] [INFO] Function: loadDatabase(), Line: 71, Message: Feature norm for /workspaces/TestGit/DB/20521422_1.jpg: 11.313709
+[2025-11-09 12:17:25] [INFO] Function: loadDatabase(), Line: 71, Message: Feature norm for /workspaces/TestGit/DB/20521422_2.jpg: 11.313709
+[2025-11-09 12:17:25] [INFO] Function: loadDatabase(), Line: 71, Message: Feature norm for /workspaces/TestGit/DB/20521422_3.jpg: 11.313709
+[2025-11-09 12:17:25] [INFO] Function: loadDatabase(), Line: 71, Message: Feature norm for /workspaces/TestGit/DB/20521422_4.jpg: 11.313709
+[2025-11-09 12:17:25] [INFO] Function: loadDatabase(), Line: 71, Message: Feature norm for /workspaces/TestGit/DB/20521422_5.jpg: 11.313708
+[2025-11-09 12:17:25] [INFO] Function: loadDatabase(), Line: 83, Message: Loaded 5 faces in total
+[2025-11-09 12:17:25] [INFO] Function: init(), Line: 20, Message: ProducerCamIpml: Opening video file ./test/Huyen.mp4
+[2025-11-09 12:17:26] [INFO] Function: load(), Line: 252, Message: Face Mesh load done!
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.527495
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.543799
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.533780
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.507296
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.530801
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.472002
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.504233
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.483151
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.493406
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.503114
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:26] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.509129
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.509785
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.501892
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.512476
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.520977
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.505807
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.502664
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.507636
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.515505
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.529258
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.510907
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.523209
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.512623
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.523068
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.541546
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.538229
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.539286
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.547186
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.548970
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.532296
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.552461
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.552345
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.533122
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.552085
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.554714
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.556147
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.568737
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.564461
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.563632
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.552672
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.546487
+[2025-11-09 12:17:27] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.550663
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.559763
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.568192
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.557923
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.542821
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.550093
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.534703
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.542544
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.544979
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.532549
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.547247
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.554152
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.552307
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.564205
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.543562
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.538355
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.541100
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.553297
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.552402
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.530351
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.558930
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.545699
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.545110
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.541672
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.532712
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.532824
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.525955
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.536139
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.547587
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:28] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.542955
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.560038
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.582457
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.572464
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.536600
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.546090
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.536440
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.522387
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.508774
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.499764
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.516424
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.524154
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.502698
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.505862
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.518536
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.526003
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.544665
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.520524
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.521810
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.528968
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.536852
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.512307
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.528497
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.525029
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.511922
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.537458
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.532691
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.526943
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.540963
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.536839
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313708
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.540765
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.545021
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:29] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.525154
+[2025-11-09 12:17:30] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:30] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.541640
+[2025-11-09 12:17:30] [INFO] Function: recognize(), Line: 183, Message: Camera feature norm: 11.313709
+[2025-11-09 12:17:30] [INFO] Function: recognize(), Line: 198, Message: Cosine similarity score: 0.578054
+[2025-11-09 12:17:30] [INFO] Function: main(), Line: 50, Message: ✅ Người trong video trùng với ảnh trong DB!

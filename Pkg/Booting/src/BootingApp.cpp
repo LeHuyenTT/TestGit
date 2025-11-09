@@ -46,7 +46,7 @@ inline static bool downloadDB(QJsonArray arrLinkDB) {
             std::string id_stt = extract_id_stt(urlStr);
 
             // ✅ Tải ảnh về thư mục DB
-            std::string cmd = "wget -q -O " + dbPath + "/" + id_stt + ".png \"" + urlStr + "\"";
+            std::string cmd = "wget -q -O " + dbPath + "/" + id_stt + ".jpg \"" + urlStr + "\"";
 
             LOG(LogLevel::INFO, "Downloading: " + urlStr);
             LOG(LogLevel::INFO, "→ id_stt: " + id_stt);
