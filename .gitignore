@@ -72,6 +72,9 @@ Thumbs.db
 *.exe
 CMakeLists.txt.user
 build/
+libs/
+captured/
+*.log
 .vsode/
 mocks/getDeviceID
 

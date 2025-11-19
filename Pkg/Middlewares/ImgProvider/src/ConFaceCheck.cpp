@@ -1,6 +1,7 @@
 #include "../inc/ConFaceCheck.h"
 #include "../inc/ImageStreamObserver.h"
 #include "Login/inc/authService.h"
+#include "Logger/inc/logger.h"
 
 ConFaceCheckIpml::ConFaceCheckIpml() {
     this->id = "confacecheck";

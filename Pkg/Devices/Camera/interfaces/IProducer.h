@@ -7,6 +7,7 @@
 #include <opencv2/opencv.hpp>
 #include <string>
 #include <thread>
+#include "Logger/inc/logger.h"
 
 template <typename T> class Producer {
 public:

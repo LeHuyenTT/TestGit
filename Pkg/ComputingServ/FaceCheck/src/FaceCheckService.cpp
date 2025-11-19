@@ -1,6 +1,6 @@
 #include "../inc/FaceCheckService.h"
 #include "Logger/inc/logger.h"
-#define DEBUG //! comment this line to disable debug mode
+#define DEBUG 
 
 FaceCheckService *FaceCheckService::instance = nullptr;
 std::mutex        FaceCheckService::m_ctx;
@@ -68,7 +68,7 @@ bool FaceCheckService::loadDatabase() {
 
             // 🔍 Log kiểm tra feature
             double n = cv::norm(feat);
-            LOG(LogLevel::INFO, "Feature norm for " + this->NameFaces[i] + ": " + std::to_string(n));
+            //LOG(LogLevel::INFO, "Feature norm for " + this->NameFaces[i] + ": " + std::to_string(n));
 
             if (feat.empty() || std::isnan(n) || n == 0) {
                 LOG(LogLevel::WARNING, "⚠️ Invalid feature (empty or NaN) for: " + this->NameFaces[i]);
@@ -128,152 +128,103 @@ bool FaceCheckService::loadModelCustom() {
     return ret;
 }
 
-bool FaceCheckService::recognize(QString id, int cam_num) {
-    //    std::string pass_id_unuse = id;
-    bool    ret = false;
-    cv::Mat frame;
+bool FaceCheckService::loginWithFace(const cv::Mat &frame) {
+    bool ret = false;
+    cv::Mat inputFrame;
     cv::Mat result_cnn;
-    //    cv::Mat faces;
-    std::vector<FaceObject> Faces;
-    int                     failureCnt = 0;
-    int                     successCnt = 0;
-
-    //cv::VideoCapture cap(cam_num); // camera
-    cv::VideoCapture cap("/workspaces/TestGit/test/Huyen.mp4"); // dùng video file
-    if (!cap.isOpened()) {
-        //        LOG(LogLevel::ERROR, "Unable to open the camera");
-        return 0;
-    }
-
-    while (1) {
-        cap >> frame;
-        if (frame.empty()) {
-            cerr << "End of movie" << endl;
-            break;
-        }
-        cv::resize(frame, result_cnn, Size(this->RetinaWidth, this->RetinaHeight), INTER_LINEAR);
-#ifdef RETINA
-        Rtn->detect_retinaface(result_cnn, Faces);
-#else
-        MtCNN.detect(result_cnn, Faces);
-#endif // RETINA
-        if (Faces.size() > 1) {
-            LOG(LogLevel::WARNING, "Many faces in camera");
-            failureCnt++;
-            continue;
-            // return 0;
-        } else if (Faces.size() < 1) {
-            LOG(LogLevel::WARNING, "No face in camera");
-            failureCnt++;
-            continue;
-            // return 0;
-        } else {
-            if (Faces[0].FaceProb > MIN_FACE_THRESHOLD) {
-                cv::Mat aligned = Warp.Process(result_cnn, Faces[0]);
-                Faces[0].Angle  = Warp.Angle;
-
-                // 🔧 Resize ảnh đầu vào đúng chuẩn model ArcFace
-                cv::resize(aligned, aligned, cv::Size(112, 112));
-
-                // 🧩 Trích xuất đặc trưng khuôn mặt từ camera
-                cv::Mat fc2 = ArcFace.GetFeature(aligned);
-
-                // 🔍 Log kiểm tra feature
-                double n2 = cv::norm(fc2);
-                LOG(LogLevel::INFO, "Camera feature norm: " + std::to_string(n2));
-
-                if (fc2.empty() || std::isnan(n2) || n2 == 0) {
-                    LOG(LogLevel::WARNING, "⚠️ Invalid camera feature vector (empty or NaN). Skipping frame.");
-                    failureCnt++;
-                    continue;
-                }
-
-                // reset indicators
-                if (this->faceCnt > 0) {
-                    vector<double> score_;
-                    for (int c = 0; c < faceCnt; c++)
-                        score_.push_back(CosineDistance(fc1[c], fc2));
-                    // find the best match
-                    double max_score = *max_element(score_.begin(), score_.end());
-                    LOG(LogLevel::INFO, "Cosine similarity score: " + std::to_string(max_score));
-                    if (max_score > MIN_FACE_THRESHOLD) {
-                        successCnt++;
-                        if (successCnt + failureCnt > 100) {
-                            if (successCnt > 90) {
-                                ret = true;
-                                ;
-                                break;
-                            } else {
-                                ret = false;
-
-                                break;
-                            }
-                        }
-                        continue;
-                    }
-                }
-            } else {
-                failureCnt++;
-                continue;
-            }
-        }
-    }
-    return ret;
-}
-
-bool FaceCheckService::loginWithFace(const Mat &frame) {
-    cv::Mat result_cnn;
-    //    cv::Mat faces;
     std::vector<FaceObject> Faces;
 
-    if (frame.empty()) {
-        LOG(LogLevel::ERROR, "loginWithFace() --> frame is empty");
+    // ⚙️ 1. Xác định nguồn dữ liệu
+    cv::VideoCapture cap;
+    bool useExternalFrame = !frame.empty();
+
+    if (useExternalFrame) {
+        // 👉 Nhận frame từ CamThreadMgr (realtime)
+        inputFrame = frame.clone();
+    } else {
+        // 👉 Nếu không có frame, tự mở video hoặc camera
+        std::string videoPath = "/workspaces/TestGit/test/Huyen.mp4";
+        cap.open(videoPath);
+        if (!cap.isOpened()) {
+            LOG(LogLevel::WARNING, "⚠️ Unable to open video file, trying camera 0...");
+            cap.open(0);  // fallback sang camera mặc định
+        }
+        if (!cap.isOpened()) {
+            LOG(LogLevel::ERROR, "❌ Cannot open video or camera.");
+            return false;
+        }
+        cap >> inputFrame;
+    }
+
+    if (inputFrame.empty()) {
+        LOG(LogLevel::ERROR, "❌ loginWithFace() --> frame is empty");
         return false;
     }
-    cv::resize(frame, result_cnn, Size(this->RetinaWidth, this->RetinaHeight), INTER_LINEAR);
+
+    // 🧠 2. Phát hiện khuôn mặt
+    result_cnn = inputFrame.clone();
+
 #ifdef RETINA
     Rtn->detect_retinaface(result_cnn, Faces);
 #else
     MtCNN.detect(result_cnn, Faces);
-#endif // RETINA
-    if (Faces.size() != 1) {
-        LOG(LogLevel::WARNING, "Many faces or no face in camera");
-        return false;
-    } else {
-        //! check face fake or real
-        float              x1      = Faces[0].rect.x;
-        float              y1      = Faces[0].rect.y;
-        float              x2      = Faces[0].rect.width + x1;
-        float              y2      = Faces[0].rect.height + y1;
-        struct LiveFaceBox LiveBox = {x1, y1, x2, y2};
+#endif
 
-        float rateFake = Live.Detect(result_cnn, LiveBox);
-        if (rateFake <= FACE_LIVING) {
-            LOG(LogLevel::WARNING, "Face is fake");
-            return false;
+    if (Faces.size() != 1) {
+        LOG(LogLevel::WARNING, "❌ No face or multiple faces detected");
+        return false;
+    }
+
+    if (Faces[0].FaceProb < FACE_PROB_THRESH) {
+        LOG(LogLevel::WARNING, "⚠️ Low detection confidence: " + std::to_string(Faces[0].FaceProb));
+        return false;
+    }
+
+    // 🔹 3. Check liveness (anti-spoof)
+    float x1 = Faces[0].rect.x;
+    float y1 = Faces[0].rect.y;
+    float x2 = Faces[0].rect.width + x1;
+    float y2 = Faces[0].rect.height + y1;
+    struct LiveFaceBox LiveBox = {x1, y1, x2, y2};
+
+    float rateFake = Live.Detect(result_cnn, LiveBox);
+    LOG(LogLevel::INFO, "Liveness score: " + std::to_string(rateFake));
+    if (rateFake <= FACE_LIVING) {
+        LOG(LogLevel::WARNING, "⚠️ Face is fake (score=" + std::to_string(rateFake) + ")");
+        return false;
+    }
+
+    // ✨ 4. Align khuôn mặt
+    cv::Mat aligned = Warp.Process(result_cnn, Faces[0]);
+    Faces[0].Angle  = Warp.Angle;
+    cv::resize(aligned, aligned, cv::Size(112, 112));
+
+    // 🧩 5. Trích xuất đặc trưng
+    cv::Mat fc2 = ArcFace.GetFeature(aligned);
+    double n2 = cv::norm(fc2);
+    if (fc2.empty() || std::isnan(n2) || n2 == 0) {
+        LOG(LogLevel::WARNING, "⚠️ Invalid feature vector.");
+        return false;
+    }
+
+    // 🔍 6. So khớp với database
+    if (this->faceCnt > 0) {
+        std::vector<double> score_;
+        for (int c = 0; c < faceCnt; c++)
+            score_.push_back(CosineDistance(fc1[c], fc2));
+
+        double max_score = *std::max_element(score_.begin(), score_.end());
+        LOG(LogLevel::INFO, "Cosine similarity score: " + std::to_string(max_score));
+
+        if (max_score > COSINE_THRESH) {
+            LOG(LogLevel::INFO, "✅ Match found! Cosine = " + std::to_string(max_score));
+            ret = true;
         } else {
-            LOG(LogLevel::INFO, "Face is real");
-        }
-        if (Faces[0].FaceProb > MIN_FACE_THRESHOLD) {
-            cv::Mat aligned = Warp.Process(result_cnn, Faces[0]);
-            Faces[0].Angle  = Warp.Angle;
-            // features of camera image
-            cv::Mat fc2 = ArcFace.GetFeature(aligned);
-            // reset indicators
-            if (this->faceCnt > 0) {
-                vector<double> score_;
-                for (int c = 0; c < faceCnt; c++)
-                    score_.push_back(CosineDistance(fc1[c], fc2));
-                // find the best match
-                double max_score = *max_element(score_.begin(), score_.end());
-                if (max_score > MIN_FACE_THRESHOLD) {
-                    LOG(LogLevel::INFO, "Max face score: " + std::to_string(max_score));
-                    return true;
-                }
-            }
+            LOG(LogLevel::WARNING, "❌ Not matched. Cosine = " + std::to_string(max_score));
         }
     }
-    return false;
+
+    return ret;
 }
 
 FaceCheckService::FaceCheckService(QObject *parent) : QObject(parent) {

@@ -18,13 +18,9 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <vector>
+#include "config.h"
 
 using namespace cv;
-
-//#define RETINA                                    // comment if you want to use MtCNN landmark detection instead
-#define TEST_LIVING
-#define MIN_FACE_THRESHOLD 0.50
-#define FACE_LIVING 0.93
 
 class FaceCheckService : public QObject {
     Q_OBJECT
@@ -38,8 +34,8 @@ private:
     FaceCheckService(QObject *parent = nullptr);
     ~FaceCheckService();
 
-    const int RetinaWidth  = 320;
-    const int RetinaHeight = 240;
+    int RetinaWidth  = 320;
+    int RetinaHeight = 240;
 
     //! @brief Neural network modules
     TLive                   Live;
@@ -64,8 +60,7 @@ public:
     bool             init(std::string id);
     bool             getResources(const std::string &id);
     bool             loadModelCustom();
-    bool             loginWithFace(const cv::Mat &img);
-    Q_INVOKABLE bool recognize(QString id, int cam_num = 0);
+    Q_INVOKABLE bool loginWithFace(const Mat &frame);
     bool             loadDatabase();
 
     std::string setPatternStr(std::string id);

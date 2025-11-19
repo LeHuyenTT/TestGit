@@ -21,14 +21,10 @@ int main(int argc, char *argv[]) {
     QQmlApplicationEngine engine;
 
     // --- Bước 1: Booting app (tải danh sách ảnh từ API và lưu về ./DB hoặc /tmp/DB)
-    BootApp::getInstance().init();
+    //BootApp::getInstance().init();
 
     // --- Bước 2: Khởi tạo dịch vụ FaceCheckService với ID (ví dụ "20521422")
     FaceCheckService::getInstance()->init("20521422");
-    // → Hàm init() sẽ gọi setPatternStr() và loadDatabase(), không còn lỗi pattern_jpg
-    // cv::Mat img = cv::imread("/tmp/DB/20521422_1.jpg");
-    // cv::Mat feat = FaceCheckService::getInstance()->getFeatureFromImage(img);
-    // std::cout << "feature shape: " << feat.rows << "x" << feat.cols << std::endl;
     // --- Bước 3: Khởi tạo video test thay cho camera thật
     CamThreadMgr::getInstance()->setVideoPath("./test/Huyen.mp4");
 
@@ -43,13 +39,7 @@ int main(int argc, char *argv[]) {
     // --- Bước 4: Nạp các mô hình xử lý mesh
     FaceMeshService::getInstance()->load("500m");
 
-    // --- Bước 5: Chạy event loop Qt
-    bool match = FaceCheckService::getInstance()->recognize("20521422", 0);
-
-    if (match)
-        LOG(LogLevel::INFO, "✅ Người trong video trùng với ảnh trong DB!");
-    else
-        LOG(LogLevel::WARNING, "❌ Người trong video KHÔNG trùng với ảnh trong DB!");
+  //  CamThreadMgr::getInstance()->startConsumerByID(1);
 
     return app.exec();
 }
