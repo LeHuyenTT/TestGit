@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.10)
 project(AppTeacher LANGUAGES CXX)
 
 # --- Qt packages ---
+
 find_package(Qt5 COMPONENTS Core Quick Qml Sql Multimedia REQUIRED)
 
 # --- Compiler setup ---

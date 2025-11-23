@@ -36,8 +36,11 @@ VARIANT="$1"
 echo "🚀 Building with variant: $VARIANT"
 echo "----------------------------------------"
 
-# Configure CMake
-cmake -DCMAKE_BUILD_TYPE="$VARIANT" ..
+# Configure CMake (force local Qt5 path)
+cmake -DCMAKE_BUILD_TYPE="$VARIANT" \
+      -DQt5_DIR="$PROJECT_ROOT/libs/qt5_bin/usr/lib/x86_64-linux-gnu/cmake/Qt5" \
+      -DCMAKE_PREFIX_PATH="$PROJECT_ROOT/libs/qt5_bin/usr/lib/x86_64-linux-gnu/cmake" \
+      -DQT_HOST_BINS="$PROJECT_ROOT/libs/qt5_bin/usr/lib/qt5/bin" ..
 
 # Build and check result
 if cmake --build . -j$(nproc); then

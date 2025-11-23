@@ -1,68 +1,42 @@
 #!/bin/bash
 set -e
-QT_BRANCH="5.15"   # dùng nhánh 5.15 thay vì tag riêng
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-LIBS_DIR="${ROOT_DIR}/libs"
-QT_SRC_DIR="${LIBS_DIR}/qt_src"
-QT_INSTALL_DIR="${LIBS_DIR}/qt5_bin"
+LIBS_DIR="$ROOT_DIR/libs"
+QT_INSTALL_DIR="$LIBS_DIR/qt5_bin"
+mkdir -p "$QT_INSTALL_DIR"
 
-echo "📦 Building Qt $QT_BRANCH (community branch, GCC 13 ready)..."
+echo "📦 Installing full Qt5 locally into $QT_INSTALL_DIR ..."
 
-# --- Step 1: install dependencies ---
-sudo apt-get update -y
-sudo apt-get install -y build-essential perl python3 git \
-  libgl1-mesa-dev libxkbcommon-x11-dev libpulse-dev libasound2-dev \
-  libfontconfig1-dev libdbus-1-dev libxcb1-dev libx11-dev libxext-dev \
-  libxrender-dev libxi-dev libxrandr-dev libxcursor-dev libxfixes-dev
+# Tạo cache riêng để tránh yêu cầu sudo
+APT_CACHE="$QT_INSTALL_DIR/apt-cache"
+mkdir -p "$APT_CACHE/archives/partial"
+echo "dir::cache::$APT_CACHE;" > apt.conf
+echo "dir::state::$APT_CACHE/state;" >> apt.conf
+echo "dir::etc::sourcelist /etc/apt/sources.list;" >> apt.conf
+echo "dir::etc::sourceparts /etc/apt/sources.list.d;" >> apt.conf
 
-# --- Step 2: prepare directories ---
-rm -rf "$QT_SRC_DIR" "$QT_INSTALL_DIR"
-mkdir -p "$QT_SRC_DIR"
-cd "$QT_SRC_DIR"
+# Tải các gói .deb (không cài vào hệ thống)
+apt-get -o Dir::Etc::sourcelist=/etc/apt/sources.list \
+        -o Dir::Etc::sourceparts=/etc/apt/sources.list.d \
+        -o Debug::NoLocking=true \
+        -o Dir::Cache=$APT_CACHE \
+        --download-only install -y \
+        qtbase5-dev qtbase5-dev-tools qtdeclarative5-dev qttools5-dev qttools5-dev-tools qtmultimedia5-dev
 
-# --- Step 3: fetch Qt source ---
-git clone https://code.qt.io/qt/qt5.git .
-git checkout $QT_BRANCH
+# Giải nén tất cả .deb vào thư mục local
+find "$APT_CACHE/archives" -name "*.deb" -exec dpkg-deb -x {} "$QT_INSTALL_DIR" \;
 
-# Lấy các submodule chính (đủ để build core, gui, multimedia)
-perl init-repository --module-subset=qtbase,qtdeclarative,qtmultimedia
+# Kiểm tra file chính
+if [ -f "$QT_INSTALL_DIR/usr/lib/x86_64-linux-gnu/libQt5Core.so" ] && \
+   [ -x "$QT_INSTALL_DIR/usr/lib/qt5/bin/moc" ]; then
+  echo "✅ Full Qt5 installed successfully into $QT_INSTALL_DIR"
+else
+  echo "❌ Qt5 installation incomplete, missing core libs or tools"
+  exit 1
+fi
 
-# --- Step 4: optional safety patch for GCC 13 ---
-PATCH_FILES=(
-  "$QT_SRC_DIR/qtbase/src/corelib/global/qfloat16.h"
-  "$QT_SRC_DIR/qtbase/src/corelib/text/qbytearraymatcher.h"
-)
-for file in "${PATCH_FILES[@]}"; do
-  if [ -f "$file" ] && ! grep -q "<limits>" "$file"; then
-    echo "⚙️  Patching $(basename "$file") ..."
-    sed -i '1i #include <limits>' "$file"
-  fi
-done
-
-# --- Step 5: configure ---
-mkdir build && cd build
-export CXXFLAGS="-std=c++14"
-export CFLAGS="-std=c++14"
-export CPPFLAGS="-std=c++14"
-
-../configure -prefix "$QT_INSTALL_DIR" \
-  -opensource -confirm-license \
-  -nomake tests -nomake examples \
-  -no-icu -no-dbus -skip qtwebengine
-
-# --- Step 6: build & install ---
-CPU_CORES=$(nproc || echo 2)
-echo "🚀 Building Qt with $CPU_CORES cores..."
-make -j"$CPU_CORES" || echo "⚠️  make returned non-zero, continuing..."
-make install
-
-# --- Step 7: cleanup ---
-cd "$ROOT_DIR"
-rm -rf "$QT_SRC_DIR"
-
-echo "✅ Qt branch $QT_BRANCH built successfully!"
 echo ""
-echo "To use this build:"
-echo "   export PATH=\"$QT_INSTALL_DIR/bin:\$PATH\""
-echo "   export QTDIR=\"$QT_INSTALL_DIR\""
-echo "   export CMAKE_PREFIX_PATH=\"$QT_INSTALL_DIR/lib/cmake:\$CMAKE_PREFIX_PATH\""
+echo "👉 To use it:"
+echo "   export PATH=\"$QT_INSTALL_DIR/usr/lib/qt5/bin:\$PATH\""
+echo "   export Qt5_DIR=\"$QT_INSTALL_DIR/usr/lib/x86_64-linux-gnu/cmake/Qt5\""
+echo "   export CMAKE_PREFIX_PATH=\"$QT_INSTALL_DIR/usr/lib/x86_64-linux-gnu/cmake:\$CMAKE_PREFIX_PATH\""
